@@ -9,14 +9,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>AdminLTE 3 | Starter</title>
 
-    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
   
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper">
+<div class="wrapper" id="app">
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
@@ -98,7 +99,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="img/boy.png" class="img-circle elevation-2" alt="User Image">
+          <img src="{{asset('img/boy.png')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
           <a href="#" class="d-block">Franco</a>
@@ -133,12 +134,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </li>
             </ul>
           </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+          <li class="nav-item" >
+            <a href="/clientes"  class="nav-link">
               <i class="nav-icon fa fa-th"></i>
               <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
+               Clientes
+                <!-- <span class="right badge badge-danger">New</span> -->
               </p>
             </a>
           </li>
@@ -175,19 +176,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="row">
         <!-- /.col-md-6 -->
           <div class="col-lg-12">
-            <div class="card">
-              <div class="card-header">
-                <h5 class="m-0">Featured</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-               
-              </div>
-            </div>
-
-           
+           @yield('content')
           </div>
           <!-- /.col-md-6 -->
         </div>
@@ -222,6 +211,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- REQUIRED SCRIPTS -->
 
-<script src="js/app.js"></script>
+<script src="{{asset('js/app.js')}}"></script>
 </body>
 </html>
