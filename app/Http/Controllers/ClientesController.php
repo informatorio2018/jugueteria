@@ -29,12 +29,11 @@ class ClientesController extends Controller
         return view('clientes.index',compact('clientes','documentos','tratamientos'));
     }
 
-    public function listar()
-    {   
-       
-        
-         return view('clientes.index');
+    public function buscar($id){
+        return Cliente::find($id);
     }
+
+    
 
 
     /**
@@ -56,7 +55,7 @@ class ClientesController extends Controller
     public function store(Request $request)
     {
         
-
+      
         $validatedData = $request->validate([
             'RazonSocial' => 'required|unique:clientes',
             'NroDocumento' => 'required|unique:clientes|min:0|max:99999999',
@@ -74,6 +73,11 @@ class ClientesController extends Controller
                  
                 $imagen->save($ruta . $temp_name, 70);
             }
+        
+            
+          
+
+
     //    no guarda foto
         $cliente = new Cliente;
         $cliente->RazonSocial=$request->RazonSocial;
@@ -120,7 +124,8 @@ class ClientesController extends Controller
         $cliente->foto = '/img/clientes/'.$temp_name;
 
         $cliente->save();
-        return redirect('clientes');
+        
+        return redirect('clientes')->with('info','Cliente creado exitosamente');
     }
 
     /**
@@ -160,6 +165,84 @@ class ClientesController extends Controller
      */
     public function update(Request $request, $id)
     {
+       
+        $validatedData = $request->validate([
+            'RazonSocial' => 'required',
+            'NroDocumento' => 'required|min:0|max:99999999',
+            'DireccionFiscal' => 'required',
+            'CodigoPostal' => 'required',
+            'foto'=>'mimes:jpeg,jpg,png'
+            ]);
+
+       
+        $cliente = Cliente::find($id);
+
+        $ruta = public_path().'/img/clientes/';
+
+        if ($request->hasFile('foto')){
+            $imagenOriginal = $request->file('foto');
+                      
+            $imagen = Image::make($imagenOriginal);         
+            $temp_name = $this->random_string() . '.' . $imagenOriginal->getClientOriginalExtension();
+             
+            $imagen->save($ruta . $temp_name, 70);
+            $temp_name = '/img/clientes/'.$temp_name;
+
+        }else{
+
+            $temp_name = $cliente->foto;
+        }
+
+
+
+       
+        $cliente->RazonSocial=$request->RazonSocial;
+        $cliente->id_documento=$request->TipoDocumento;
+        $cliente->NroDocumento=$request->NroDocumento;
+        $cliente->DireccionFiscal=$request->DireccionFiscal;
+        $cliente->CodigoPostal=$request->CodigoPostal;
+        
+        if ($request->PercibeIVA==null) {
+            $cliente->PercibeIVA=0;
+
+        }else{
+            $cliente->PercibeIVA=1;
+        }
+        
+        if ($request->PercibeIIBB==null) {
+            $cliente->PercibeIIBB=0;
+
+        }else{
+            $cliente->PercibeIIBB=1;
+        }
+        
+        $cliente->CondicionPago=$request->CondicionPago;
+        $cliente->id_tratamiento=$request->TratamientoImpositivo;
+        
+        if ($request->EnviarComprobante==null) {
+            $cliente->EnviarComprobante=0;
+
+        }else{
+            $cliente->EnviarComprobante=1;
+        }
+       
+        $cliente->MailFacturacion=$request->MailFacturacion;
+       
+        $cliente->Telefono=$request->Telefono;
+        
+        if ($request->Estado==null) {
+            $cliente->Estado=0;
+
+        }else{
+            $cliente->Estado=1;
+        }
+        
+        $cliente->foto = $temp_name;
+       
+        $cliente->save();
+        
+        return redirect('clientes')->with('info','Post actualizado exitosamente');
+
         
     }
 
@@ -171,6 +254,19 @@ class ClientesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cliente = Cliente::find($id)->delete();
+       return back()->with('info','Eliminado Exitosamente');
+    }
+    protected function random_string()
+    {
+        $key = '';
+        $keys = array_merge( range('a','z'), range(0,9) );
+     
+        for($i=0; $i<10; $i++)
+        {
+            $key .= $keys[array_rand($keys)];
+        }
+     
+        return $key;
     }
 }

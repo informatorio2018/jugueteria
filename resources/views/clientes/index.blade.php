@@ -55,10 +55,15 @@
                                 </td>
                                 
                                 <td>
+                                    <form action="{{route('clientes.destroy',$cliente->id)}}" method="POST">
+                                    @csrf  
+                                    <input name="_method" type="hidden" value="DELETE">
+
+                                    <!-- <i class="fas fa-trash"></i> -->
+                                    <input type="submit" class="btn btn-danger" value="Eliminar">   
                                     
-                                    <button type="submit" class="btn btn-danger">
-                                            <i class="fas fa-trash"></i>Eliminar
-                                    </button>    
+                                    </form>
+                                   
                                 
                                 </td>
                             
@@ -227,7 +232,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8">
-                                    <input type="file" name="Foto" >Seleccionar foto
+                                    <input type="file" name="foto" >Seleccionar foto
                                     </div>
                                     </div>
 											

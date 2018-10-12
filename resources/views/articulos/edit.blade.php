@@ -12,7 +12,6 @@
                                 <div class="card-body">
 							<form method="POST" action="{{route('clientes.update',$cliente->id)}}" enctype="multipart/form-data">
 						        @csrf
-								<input name="_method" type="hidden" value="PUT">
 						        <div class="row">
 							        <div class="col-md-5">
 							            <div class="form-group bmd-form-group">
@@ -25,14 +24,7 @@
 						                	<label>Tratamiento Impositivo</label>
 						                   <select class="form-control" name="TratamientoImpositivo">
 						                   		@foreach($tratamientos as $tratamiento)
-												
-													@if($tratamiento->id == $cliente->id_tratamiento)
-												 	<option value="{{$tratamiento->id}}" selected="selected">{{$tratamiento->condicion}}</option>
-
-												  @else
-												  <option value="{{$tratamiento->id}}" >{{$tratamiento->condicion}}</option>
-												  @endif
-						                   		
+						                   		<option value="{{$tratamiento->id}}">{{$tratamiento->condicion}}</option>
 						                   		@endforeach
 						                   </select>
 						                </div>
@@ -41,12 +33,8 @@
 							            <div class="form-group bmd-form-group">
 							            	<label>Condicion de Pago</label>
 							                <select class="form-control" name="CondicionPago">
-											
-												@if($cliente->CondicionPago == "Debito")
-							                        <option value="Debito" selected="selected">Debito</option>
-												@else
+							                        <option value="Debito">Debito</option>
 							                        <option value="Contado">Contado</option>
-												@endif
 							            
 							                </select>
 							            </div>
@@ -62,12 +50,7 @@
 						                	<label>Tipo de Documento</label>
 						                   <select class="form-control" name="TipoDocumento">
 						                   		@foreach($documentos as $documento)
-												  @if($documento->id == $cliente->id_documento)
-												  <option value="{{$documento->id}}" selected="selected">{{$documento->documento}}</option>
-												  @else
-												  <option value="{{$documento->id}}">{{$documento->documento}}</option>
-												  @endif
-												
+						                   		<option value="{{$documento->id}}">{{$documento->documento}}</option>
 						                   		@endforeach
 						                   </select>
 						                </div>
@@ -119,13 +102,7 @@
 						        <div class="row">
 						        <div class="col-md-2">
 						            <div class="form-check">
-										@if($cliente->Estado == 0)
-										<input class="" type="checkbox" name="Estado" id="exampleRadios1" value="0">
-
-										@else
-										<input class="" type="checkbox" name="Estado" id="exampleRadios1" value="1" checked>
-
-										@endif
+						                <input class="" type="checkbox" name="Estado" id="exampleRadios1" value="1">
 						                Activo
 						            </div>
 						        </div>
@@ -134,40 +111,20 @@
 						        
 						        <div class="col-md-3">
 						            <div class="form-check">
-										@if($cliente->PercibeIVA == 0)
-										<input class="" type="checkbox" name="PercibeIVA" id="exampleRadios1" value="0">
-
-										@else
-										<input class="" type="checkbox" name="PercibeIVA" id="exampleRadios1" value="1" checked>
-
-										@endif
-						               
+						                <input class="" type="checkbox" name="PercibeIVA" id="exampleRadios1" value="1">
 						                IVA
 						            </div>
 						        </div>
 
 						        <div class="col-md-3">
 						            <div class="form-check">
-									@if($cliente->PercibeIIBB == 0)
-										<input class="" type="checkbox" name="PercibeIIBB" id="exampleRadios1" value="0">
-
-										@else
-										<input class="" type="checkbox" name="PercibeIIBB" id="exampleRadios1" value="1" checked>
-
-										@endif
-						   
+						                <input class="" type="checkbox" name="PercibeIIBB" id="exampleRadios1" value="1">
 						                Ingresos Brutos
 						            </div>
 						        </div>
 						        <div class="col-md-4">
 						                <div class="form-check">
-										@if($cliente->EnviarComprobante == 0)
-										<input class="" type="checkbox" name="EnviarComprobante" id="exampleRadios1" value="0">
-
-										@else
-										<input class="" type="checkbox" name="EnviarComprobante" id="exampleRadios1" value="1" checked>
-
-										@endif	
+						            <input class="" type="checkbox" name="EnviarComprobante" id="exampleRadios1" value="1">
 						            Enviar Comprobante
 						            </div>
 						        </div>
@@ -176,12 +133,10 @@
 
 
 			        <div class="row">
-						<div class="form-group bmd-form-group">
+			    
 				        <div class="col-md-8">
-						<img src="{{$cliente->foto}}" alt="" width="120px">
-						<input type="file" name="foto" >Seleccionar foto
+				        <input type="file" name="Foto" >Seleccionar foto
 				        </div>
-						</div>
 			    	</div>
 																				
 			      <div class="clearfix"></div>              

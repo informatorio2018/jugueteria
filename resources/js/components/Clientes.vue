@@ -245,7 +245,6 @@
                                     </div>
                                     </div>
 
-                                    <button type="button" class="btn btn-primary pull-right" @click="guardarCLiente()">Guardar Cliente</button>
                                     <div class="clearfix"></div>
                                 </form>
                                 </div>

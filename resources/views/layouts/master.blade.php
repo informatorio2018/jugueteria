@@ -17,12 +17,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
   
 </head>
 <body class="hold-transition sidebar-mini">
-<div class="wrapper" id="app">
+<div class="wrapper" >
 
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand bg-white navbar-light border-bottom">
     <!-- Left navbar links -->
-    <ul class="navbar-nav">
+    <ul class="navbar-nav" id="app">
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
       </li>
@@ -122,13 +122,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link active">
-                <i class="fas fa-shopping-cart"></i>
+                <i class="nav-icon fas fa-shopping-cart"></i>
                   <p>Active Page</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="#" class="nav-link">
-                <i class="fas fa-bullhorn"></i>
+                <i class="nav-icon fas fa-bullhorn"></i>
                   <p>Inactive Page</p>
                 </a>
               </li>
@@ -139,6 +139,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
               <i class="nav-icon fa fa-th"></i>
               <p>
                Clientes
+                <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" >
+            <a href="/articulos"  class="nav-link">
+            <i class="nav-icon fas fa-cart-arrow-down"></i>
+              <p>
+               Articulos
+                <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" >
+            <a href="/facturas"  class="nav-link">
+              <i class="nav-icon fa fa-credit-card"></i>
+              <p>
+               Facturas
                 <!-- <span class="right badge badge-danger">New</span> -->
               </p>
             </a>
@@ -173,6 +191,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
+        <div class="row">
+        @if(count($errors))
+                 <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach($errors->all() as $error)
+                                    <li>{{$error}}</li>
+                                    @endforeach
+                                </ul>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
+        <div class="row">
+        @if(session('info'))
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2">
+                            <div class="alert alert-success">
+                                {{session('info')}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
         <div class="row">
         <!-- /.col-md-6 -->
           <div class="col-lg-12">
