@@ -8,7 +8,7 @@ $factory->define(App\Articulo::class, function (Faker $faker) {
     $foto = '/img/articulos/noimage.png';
     return [
         'articulo'=>$faker->sentence(2),
-        
+        'codArticulo'=>$faker->randomNumber($nbDigits = 6, $strict = true),
         'descripcion'=>$faker->sentence(3),
         'cantidad'=>$faker->randomDigit,
         'stockMinimo'=>$faker->randomNumber($nbDigits = 1, $strict = true),

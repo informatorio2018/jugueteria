@@ -13996,29 +13996,18 @@ module.exports = __webpack_require__(49);
 /***/ (function(module, exports, __webpack_require__) {
 
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 
 __webpack_require__(14);
 
 window.Vue = __webpack_require__(38);
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
 Vue.component('example-component', __webpack_require__(41));
 Vue.component('cliente-component', __webpack_require__(44));
 var app = new Vue({
-  el: '#app',
-  data: {
-    menu: 0
-  }
+    el: '#app',
+    data: {
+        menu: 0
+    }
 });
 
 /***/ }),
@@ -47746,7 +47735,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -57266,20 +57254,6 @@ var render = function() {
                                 )
                               ])
                             ]),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-primary pull-right",
-                                attrs: { type: "button" },
-                                on: {
-                                  click: function($event) {
-                                    _vm.guardarCLiente()
-                                  }
-                                }
-                              },
-                              [_vm._v("Guardar Cliente")]
-                            ),
                             _vm._v(" "),
                             _c("div", { staticClass: "clearfix" })
                           ]

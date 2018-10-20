@@ -29,11 +29,18 @@ class ClientesController extends Controller
         return view('clientes.index',compact('clientes','documentos','tratamientos'));
     }
 
-    public function buscar($id){
-        return Cliente::find($id);
+    public function buscar(Request $request){
+        $clientes = Cliente::where('RazonSocial','LIKE','%'.$request->buscar.'%')->get();
+
+        return response()->json($clientes);
     }
 
-    
+    public function search(Request $request)
+    {
+        $clientes = Cliente::where('RazonSocial','LIKE',$request->search.'%')->get();
+
+        return response()->json($categories);
+    }
 
 
     /**

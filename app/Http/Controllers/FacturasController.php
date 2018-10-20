@@ -29,11 +29,11 @@ class FacturasController extends Controller
      */
     public function create()
     {
-        $cliente = Cliente::find(1);
+        $clientes = Cliente::all();
         $articulos = Articulo::all();
         $factura = Factura::latest('id')->first();
         $fecha = date("Y-m-d");
-        return view('facturas.create',compact('cliente','articulos','factura','fecha'));
+        return view('facturas.create',compact('clientes','articulos','factura','fecha'));
     }
 
     /**

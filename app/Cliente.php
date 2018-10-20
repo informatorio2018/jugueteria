@@ -7,6 +7,7 @@ use App\Documento;
 use App\Tratamiento;
 class Cliente extends Model
 {
+	
     protected $fillable = ['RazonSocial','NroDocumento',
 							'DireccionFiscal','CodigoPostal','PercibeIVA','PercibeIIBB',
 							'CondicionPago','EnviarComprobante',

@@ -3,7 +3,35 @@
 @section('content')
 
     <div class="row" id="factura">
+    <div class="row">
+    <!-- <div class="row">
+        <div class="col-sm-8">
+            <h1>Building an Autocomplete Component with Vue.js and PHP Laravel 5.6</h1>
+            <div class="panel panel-primary">
+                <div class="panel-heading">Please type here in text box to get search data</div>
+                <div class="panel-body">
+                <div>
+                <input type="text" 
+                    placeholder="Type here.."
+                     v-model="buscar" 
+                     v-on:keyup="autoComplete" 
+                     class="form-control">
+
+                <div class="panel-footer" v-if="clientes.length">
+                <ul class="list-group">
+                <li class="list-group-item" v-for="result in clientes">@{{ result.RazonSocial }}</li>
+                </ul>
+                </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
     
+    </div>
+    <pre>
+        
+    </pre>
     <div class="col-md-12">
         <div class="card">
                 <div class="card-header card-header-primary">
@@ -12,25 +40,43 @@
                 <!-- title row -->
                     <div class="row">
                     <div class="col-sm-4 invoice-col">
-                        From
+                        De:
                         <address>
-                            <strong></strong><br>
-                            Jugueteria SA<br>
-                            San Francisco, CA 94107<br>
-                            4323444<br>
-                            jug@mail.com
+                            <h2>Jugueteria SA</h2>
+                            <br>
+                            <strong>Direccion:  </strong><div>San Francisco 123</div><br>
+                            <strong>Telefono:  </strong><div>3735-433221</div><br>
+                            <strong>CUIT:  </strong><div>22-8978622-9</div><br>
                         </address>
                     </div>
 
-                    <div class="col-sm-4 invoice-col float-right">
-                        To
+                    <div class="col-sm-8 invoice-col">
+                        
+                        <div>
+                            <input type="text" placeholder="Buscar Cliente..." v-model="buscar" v-on:keyup="autoComplete" class="form-control">
+                            <div v-if="clientes.length">
+                            <ul class="list-group">
+                            <li class="list-group-item" 
+                                v-for="(result,index) in clientes" 
+                                :key="index" @click="seleccionaCliente(result.id)">@{{ result.RazonSocial }}</li>
+                            </ul>
+                            </div>
+                        </div>
+                    
                         <address>
-                            <strong>{{$cliente->RazonSocial}}</strong><br>
-                            <strong>Direccion:  </strong>{{$cliente->DireccionFiscal}}<br>
+                            <h2 v-text="cliente"></h2>
+                           
+                            <strong>Direccion:  </strong><div v-text="direccion"></div><br>
                           
-                            <strong>Tel: </strong> {{$cliente->Telefono}}<br>
-                            <strong>Tel: </strong> {{$cliente->MailFacturacion}}
+                            <strong>Tel: </strong> <div v-text="telefono"></div><br>
+                            <strong>Email: </strong> <div v-text="direccion"></div><br>
+                            <strong>CUIT: </strong> <div v-text="cuit"></div> 
                         </address>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4 invoice-col float-right">
+                   
                     </div>
 
                     </div>
@@ -50,8 +96,14 @@
                                 <input type="text" class="form-control" name="ptoVenta" placeholder="Punto de Venta" value="1">
                               </div>
                               <div class="col-md-3">
-                                  <label for="">Num Factura</label>                    
+                                  <label for="">Num Factura</label>
+                                  @if($factura)
                                   <input type="text" class="form-control" placeholder="Numero de Factura" name="numFactura" value="{{($factura->numFactura)+1}}">
+
+                                  @else
+                                    <input type="text" class="form-control" placeholder="Numero de Factura" name="numFactura" value="1">
+
+                                  @endif                    
                               </div>
                               
                               <div class="col-md-4">
@@ -73,42 +125,51 @@
                           
                             </div>
                             <hr>
-                            <div class="row">
-                            <div class="col-md-4">
-                            <div class="form-group">
-                                <label>CUIT:</label>
-
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fa fa-phone"></i></span>
-                                    </div>
-                                    <input name="cuit" type="text" class="form-control" >
-                                </div>
-                                <!-- /.input group -->
-                                </div>
-                                
-                              </div>
-                            </div>
                             
-                            <hr>
                             
                             <div class="row fila">
-                            
+
+                            <div class="col-md-4">
+                                <label for="">CodArticulo</label>
+                                <input 
+                                type="text" 
+                                placeholder="Buscar Cod Articulo..." 
+                                v-model="art" 
+                                v-on:keyup="traerCodigo" 
+                                @click="limpiarArt"
+                                class="form-control">
+
+                                <div v-if="articulos.length">
+                                <ul class="list-group">
+                                <li class="list-group-item" 
+                                    v-for="(r,index) in articulos" 
+                                    :key="index" @click="seleccionaArticulo(r.id)">@{{ r.articulo }}</li>
+                                </ul>
+                                </div>
+                        </div>
+
+
                               <div class="col-md-4">
                                 <label>Seleccione Articulo</label>
-                                <select class="form-control" 
-                                  id="articulo" 
-                                  v-model="cod"
-                                  :key="articulo.id"
-                                  @change="traerUno()">
-                                 
-                                  @foreach($articulos as $articulo)
-                                    <option value="{{$articulo->id}}">{{$articulo->articulo}}</option>
-                                  @endforeach
-                                  
-                                </select>
-                                
+                                <div>
+                                <input 
+                                    type="text" 
+                                    placeholder="Buscar Articulo..." 
+                                    v-model="barticulo" v-on:keyup="buscarArticulo"
+                                    @click="limpiarBarticulo" 
+                                    class="form-control">
+                                <div v-if="todos.length">
+                                <ul class="list-group">
+                                <li class="list-group-item" 
+                                    v-for="resultado in todos" 
+                                    :key="resultado.id"
+                                    @click="cargarArticulo(resultado.id)">@{{ resultado.articulo }}
+                                </li>
+                                </ul>
                                 </div>
+                        </div>
+                                
+                            </div>
                                 <div class="col-md-2">
                                 <label for="">Disponibles</label>
                                   <input type="text" class="form-control" 
@@ -126,22 +187,10 @@
                               
                                 </div>
 
-                                <!-- <div class="col-md-4">
-                                  <label for="">SubTotal</label>
-                                  <input type="text" 
-                                  class="form-control" 
-                                  placeholder="Sub Total" 
-                                 
-                                  v-model="subTotal">
-                                
-                              </div> -->
+                             
 
                             </div>
-                            <!-- <input type='button' class = "add btn btn-success" class="btn btn-success" id='add' value='Add item' />
-                          
-
-                            
-             -->
+                           
 
                             <div class="clearfix"></div>
                             <hr>
@@ -222,6 +271,8 @@
        </div>
     </div>
 
+  
+
                 
 <script
   src="https://code.jquery.com/jquery-3.3.1.js"
@@ -232,20 +283,25 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-       
  <script>
-    Vue.component('v-select', VueSelect.VueSelect);
+   
+    
+   
    var app = new Vue({
     el: '#factura',
    
     data: {
         selected: null,
+        cuit:null,
         cod:'',
-        articulo:'',
+       
+        barticulo:'',
         precio:0,
-        telefono:'3735',
-        todo:[],
-        articulo:[],
+        direccion:'',
+        telefono:'',
+        cliente:'',
+        todos:[],
+        articulos:[],
         cantidad:0,
         subTotal:0,
         sTotal:0,
@@ -258,10 +314,13 @@
                 unidades: '',
                 sTotal: 10
             }],
+        clientes:[],
+        razonSocial:'',
+        buscar:'',
+        art:'',
+       
     },
-    computed:{
-      
-    },
+   
     watch:{
       
       cod(newval, oldval){
@@ -276,7 +335,83 @@
       }
     },
     methods: {
+        cargarArticulo(id){
+            var me = this;
+            axios.get('/art/'+id)
+            .then(function (response) {
+                var res = response.data;
+                me.precio = res.precio;
+                me.cod = res.id;
+                me.art = res.codArticulo;
+                me.barticulo = res.articulo;
+                me.cantidad = res.cantidad;
+            });
+            me.todos = [];
+
+        },
+        traerCodigo(){
+            var me = this;
+            me.articulos = [];
+            if(me.art.length > 5){
+             axios.get('/codArticulo/'+me.art).then(response => {
+                var res = response.data;
+                me.precio = res.precio;
+                me.cod = res.id;
+                me.barticulo = res.articulo;
+                me.cantidad = res.cantidad;
+            });
+            }else{
+                me.articulos = [];
+            }
+
+
+       
+        },
+        buscarArticulo(){
+            var me = this;
+            me.todos = [];
+            if(me.barticulo.length > 0){
+             axios.get('/articulo/'+me.barticulo).then(response => {
+             me.todos = response.data;
+            
+            });
+            }else{
+                me.todos =[];
+                me.barticulo ='';
+            }
+        },
+        seleccionaCliente(id){
+            var me = this;
+            axios.get('/cliente/'+id)
+            .then(function (response) {
+                var datos = response.data;
+                me.cliente = datos.RazonSocial;
+                me.direccion = datos.DireccionFiscal;
+                me.telefono = datos.Telefono;
+                me.email = datos.MailFacturacion;
+                me.cuit = datos.NroDocumento;
+                me.clientes =[];
+                me.buscar ='';
+                // always executed
+            });
+            me.buscar = '';
+
+        },
         
+        autoComplete(){
+            var me = this;
+            me.clientes = [];
+            if(me.buscar.length > 0){
+             axios.get('/buscar/'+me.buscar).then(response => {
+             me.clientes = response.data;
+            
+            });
+            }else{
+                me.clientes =[];
+                me.buscar ='';
+            }
+       
+        },
         calculateTotal() {
             var subtotal, total;
             subtotal = this.detalles.reduce(function (sum, product) {
@@ -313,8 +448,8 @@
         },
       addNewRow() {
             this.detalles.push({
-                codArticulo: this.cod,
-                articulo: this.articulo,
+                codArticulo: this.art,
+                articulo: this.barticulo,
                 precioUnitario: this.precio,
                 unidades:'',
                 sTotal: 0
@@ -326,53 +461,18 @@
       borrar(){
         this.cantidad ='';
       },
-        calcular(){
-         
-        },
-        traerTodos(){
-            var me = this;
-            axios.get('/listar')
-            .then(function (response) {
-                var respuesta =  response;
-                me.opciones = respuesta.data;
-                me.todo = respuesta.data;
-               
-                
-             
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-            .then(function () {
-                // always executed
-            });
+      limpiarBarticulo(){
+          this.barticulo = '';
+      },
+      limpiarArt(){
+          this.art = '';
+      }
 
-        },
-        traerUno(id = this.cod){
-          var me = this;
-            axios.get('/articulo/'+id)
-            .then(function (response) {
-              var res = response.data;
-                me.precio = res.precio;
-                me.cod = res.id;
-                me.articulo = res.articulo;
-                me.cantidad = res.cantidad;
-                
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-            .then(function () {
-                // always executed
-            });
-        }
+        
     },
     mounted(){
-     
-        
-    }
+       
+      }
     })
  </script>
 

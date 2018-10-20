@@ -9,6 +9,33 @@ use App\Categoria;
 use Image;
 class ArticulosController extends Controller
 {
+    public function buscarCodigo($value){
+        
+        $articulo = Articulo::where('codArticulo', '=', $value)->firstOrFail();;
+        
+        // $articulo = Articulo::firstOrFail()->where('codArticulo', $value);
+       
+        return response()->json($articulo);
+    }
+
+    public function buscarArticulo($articulo){
+        
+        $articulos = Articulo::where('articulo','LIKE','%'.$articulo.'%')->get();
+        
+        // $articulo = Articulo::firstOrFail()->where('codArticulo', $value);
+       
+        return response()->json($articulos);
+    }
+
+    public function traerArticulo($articulo){
+        
+        $articulo = Articulo::find($articulo);
+        
+        // $articulo = Articulo::firstOrFail()->where('codArticulo', $value);
+       
+        return response()->json($articulo);
+    }
+
     /**
      * Display a listing of the resource.
      *
