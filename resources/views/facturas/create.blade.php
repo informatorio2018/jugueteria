@@ -143,7 +143,7 @@
                                 <ul class="list-group">
                                 <li class="list-group-item" 
                                     v-for="(r,index) in articulos" 
-                                    :key="index" @click="seleccionaArticulo(r.id)">@{{ r.articulo }}</li>
+                                    :key="index" @click="cargarArticulo(r.id)">@{{ r.codArticulo }}</li>
                                 </ul>
                                 </div>
                         </div>
@@ -194,7 +194,11 @@
 
                             <div class="clearfix"></div>
                             <hr>
-                            <button type='button' class="btn btn-info" @click="addNewRow()">
+                            <button 
+                                type='button' 
+                                class="btn btn-info" 
+                                @click="addNewRow()"
+                                :disabled="botonDeshabilitado">
                             <i class="fas fa-plus-circle"></i>
                             Add
                             </button>
@@ -294,7 +298,7 @@
         selected: null,
         cuit:null,
         cod:'',
-       
+        botonDeshabilitado:true,
         barticulo:'',
         precio:0,
         direccion:'',
@@ -347,25 +351,22 @@
                 me.cantidad = res.cantidad;
             });
             me.todos = [];
+            me.articulos=[];
+            me.botonDeshabilitado = false;
 
         },
         traerCodigo(){
             var me = this;
             me.articulos = [];
-            if(me.art.length > 5){
+            if(me.art.length >= 5){
              axios.get('/codArticulo/'+me.art).then(response => {
-                var res = response.data;
-                me.precio = res.precio;
-                me.cod = res.id;
-                me.barticulo = res.articulo;
-                me.cantidad = res.cantidad;
+             me.articulos = response.data;
+            console.log(me.articulos);
             });
             }else{
-                me.articulos = [];
+                me.articulos =[];
+               
             }
-
-
-       
         },
         buscarArticulo(){
             var me = this;
@@ -395,6 +396,7 @@
                 // always executed
             });
             me.buscar = '';
+
 
         },
         
@@ -454,6 +456,7 @@
                 unidades:'',
                 sTotal: 0
             });
+            this.botonDeshabilitado = true;
             
           
            

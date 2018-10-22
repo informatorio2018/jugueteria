@@ -11,11 +11,11 @@ class ArticulosController extends Controller
 {
     public function buscarCodigo($value){
         
-        $articulo = Articulo::where('codArticulo', '=', $value)->firstOrFail();;
+        $articulos = Articulo::where('codArticulo','LIKE',$value.'%')->get();
         
         // $articulo = Articulo::firstOrFail()->where('codArticulo', $value);
-       
-        return response()->json($articulo);
+      
+        return response()->json($articulos);
     }
 
     public function buscarArticulo($articulo){
