@@ -85,7 +85,12 @@
                   </div>     
                 <div class="card-body" >
 
-                    <form method="POST" action="{{route('facturas.store')}}" enctype="'multipart/form-data" file="true">
+                    <form 
+                        method="POST" 
+                        action="{{route('facturas.store')}}" 
+                        enctype="'multipart/form-data" 
+                        file="true"
+                        v-on:keyup.enter.prevent="">
                             @csrf
                             <input type="" name="user_id" value="{{Auth::user()->id}}" hidden >
                             <input type="" name="cuit" v-model="cuit" hidden >
@@ -215,7 +220,7 @@
                              </tr>
                              </thead>
                              <tbody>
-                             <tr v-for="(invoice_product, k) in detalles" :key="k" v-if="k>0">
+                             <tr v-for="(invoice_product, k) in detalles" :key="k" v-if="k>0" >
                                   <td scope="row" class="trashIconContainer">
                                       <i class="far fa-trash-alt" @click="deleteRow(k, invoice_product)"></i>
                                       <input name="codArticulo[]" class="form-control" type="text" v-model="invoice_product.id" hidden/>
@@ -269,7 +274,11 @@
                                 </div>
                               </div>
                             </div>
-                            <button type="submit" class="btn btn-primary pull-right">Guardar Factura</button>
+                            <button 
+                                type="submit" 
+                                class="btn btn-primary pull-right"
+                                :disabled="guardadoDeshabilitado"
+                                >Guardar Factura</button>
 
                           </form>
 
@@ -303,6 +312,7 @@
         cuit:null,
         cod:'',
         botonDeshabilitado:true,
+        guardadoDeshabilitado:true,
         barticulo:'',
         precio:0,
         direccion:'',
@@ -328,11 +338,32 @@
         razonSocial:'',
         buscar:'',
         art:'',
+        detalle: 0,
        
     },
    
     watch:{
-      
+       total(newval,oldval){
+        if(this.cuit>0 && this.detalle>0 && this.total>0){
+              this.guardadoDeshabilitado = false;
+          }else{
+            if(this.detalle == 0 ){
+                this.total = 0;
+                this.guardadoDeshabilitado = true;
+            }
+          }
+       },
+      detalle(newval,oldval){
+          if(this.cuit>0 && this.detalle>0 && this.total>0){
+              this.guardadoDeshabilitado = false;
+          }else{
+            if(this.detalle == 0 ){
+                this.total = 0;
+                this.guardadoDeshabilitado = true;
+            }
+          }
+          
+      },
       cod(newval, oldval){
        
       },
@@ -367,7 +398,7 @@
             if(me.art.length >= 5){
              axios.get('/codArticulo/'+me.art).then(response => {
              me.articulos = response.data;
-            console.log(me.articulos);
+            
             });
             }else{
                 me.articulos =[];
@@ -448,11 +479,12 @@
         },
         deleteRow(index, invoice_product) {
             var idx = this.detalles.indexOf(invoice_product);
-            console.log(idx, index);
+           
             if (idx > -1) {
                 this.detalles.splice(idx, 1);
             }
             this.calculateTotal();
+            this.detalle--;
         },
       addNewRow() {
             this.detalles.push({
@@ -465,6 +497,7 @@
                 sTotal: 0
             });
             this.botonDeshabilitado = true;
+            this.detalle++;
             
           
            
