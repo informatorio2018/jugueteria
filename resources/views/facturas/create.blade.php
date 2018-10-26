@@ -88,7 +88,7 @@
                     <form method="POST" action="{{route('facturas.store')}}" enctype="'multipart/form-data" file="true">
                             @csrf
                             <input type="" name="user_id" value="{{Auth::user()->id}}" hidden >
-                            
+                            <input type="" name="cuit" v-model="cuit" hidden >
                             <div class="row">
                             
                               <div class="col-md-2">
@@ -206,6 +206,7 @@
                              <thead>
                              <tr>
                              <th>Del</th>
+                             
                              <th>CodArticulo</th>
                              <th>Articulo</th>
                              <th>Cantidad</th>
@@ -217,9 +218,12 @@
                              <tr v-for="(invoice_product, k) in detalles" :key="k" v-if="k>0">
                                   <td scope="row" class="trashIconContainer">
                                       <i class="far fa-trash-alt" @click="deleteRow(k, invoice_product)"></i>
+                                      <input name="codArticulo[]" class="form-control" type="text" v-model="invoice_product.id" hidden/>
+
                                   </td>
+                                 
                                   <td>
-                                      <input name="codArticulo[]" class="form-control" type="text" v-model="invoice_product.codArticulo" />
+                                      <input  class="form-control" type="text" v-model="invoice_product.codArticulo" />
                                   </td>
                                   <td>
                                       <input class="form-control " type="text" v-model="invoice_product.articulo" />
@@ -310,8 +314,10 @@
         subTotal:0,
         sTotal:0,
         total:0,
+        id_art:0,
         invoice_tax:21,
         detalles: [{
+                id:'',
                 codArticulo: '',
                 articulo: '',
                 precioUnitario: '',
@@ -345,7 +351,7 @@
             .then(function (response) {
                 var res = response.data;
                 me.precio = res.precio;
-                me.cod = res.id;
+                me.id = res.id;
                 me.art = res.codArticulo;
                 me.barticulo = res.articulo;
                 me.cantidad = res.cantidad;
@@ -450,7 +456,9 @@
         },
       addNewRow() {
             this.detalles.push({
+                id:this.id,
                 codArticulo: this.art,
+               
                 articulo: this.barticulo,
                 precioUnitario: this.precio,
                 unidades:'',

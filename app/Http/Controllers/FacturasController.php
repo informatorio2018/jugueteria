@@ -45,6 +45,7 @@ class FacturasController extends Controller
     public function store(Request $request)
     {
         
+        
         $detalle = array();
    
 
@@ -68,6 +69,7 @@ class FacturasController extends Controller
         
         
         $datos = $request->codArticulo;
+
         foreach($datos as $key => $value){
             $detalle[$value] = array(
                 'cantidad'=>$request->cantidad[$key],
