@@ -38,6 +38,10 @@
                     				  <a class="btn btn-info pull-right" href="{{route('facturas.edit',$factura->id)}}">
                               Editar
                               </a>
+															<a class="btn btn-success pull-right" href="{{route('facturas.show',$factura->id)}}">
+                              VER
+                              </a>
+															
                       			</td>
 								
                       			<td>

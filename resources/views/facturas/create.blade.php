@@ -94,6 +94,7 @@
                             @csrf
                             <input type="" name="user_id" value="{{Auth::user()->id}}" hidden >
                             <input type="" name="cuit" v-model="cuit" hidden >
+                            <input type="" name="cliente_id" v-model="cliente_id" hidden >
                             <div class="row">
                             
                               <div class="col-md-2">
@@ -319,6 +320,7 @@
     el: '#factura',
    
     data: {
+        cliente_id:'',
         selected: null,
         cuit:null,
         cod:'',
@@ -469,6 +471,7 @@
                 me.telefono = datos.Telefono;
                 me.email = datos.MailFacturacion;
                 me.cuit = datos.NroDocumento;
+                me.cliente_id = datos.id;
                 me.clientes =[];
                 me.buscar ='';
                 // always executed

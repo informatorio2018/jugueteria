@@ -77,7 +77,7 @@ class FacturasController extends Controller
             'fecha' => $request->fecha,
             'total' => $request->total,
             'subTotal' => 2700,
-            'cliente_id' => 1,
+            'cliente_id' => $request->cliente_id,
             'user_id' => $request->user_id,
         ])->save();
     
@@ -134,7 +134,13 @@ class FacturasController extends Controller
      */
     public function show($id)
     {
-        //
+        $factura = Factura::find($id);
+        $cliente = $factura->cliente;
+        
+
+        return $factura->articulos;
+       
+        return view('facturas.show',compact('factura','cliente'));
     }
 
     /**
