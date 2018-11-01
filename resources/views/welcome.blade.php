@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
-
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
@@ -81,15 +81,36 @@
                     Laravel
                 </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
+               
+
+        <div class="links">
+        <!-- <form style="border: 4px solid #a1a1a1;margin-top: 15px;padding: 10px;" action="{{ url('import') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
+                @csrf
+ 
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+ 
+                @if (Session::has('success'))
+                    <div class="alert alert-success">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                        <p>{{ Session::get('success') }}</p>
+                    </div>
+                @endif
+ 
+                <input type="file" name="import_file" />
+                <button class="btn btn-primary">Import File</button>
+        </form> -->
+        </div>
+    
+    
         </div>
     </body>
 </html>

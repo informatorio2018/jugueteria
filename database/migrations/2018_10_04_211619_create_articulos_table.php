@@ -15,11 +15,11 @@ class CreateArticulosTable extends Migration
     {
         Schema::create('articulos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('codArticulo');
+            $table->string('codarticulo')->nullable();
             $table->string('articulo');
             $table->text('descripcion');
             $table->integer('cantidad');
-            $table->integer('stockMinimo');
+            $table->integer('stockminimo');
             $table->float('precio', 8, 2);
             $table->text('foto')->nullable();
 

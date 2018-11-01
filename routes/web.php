@@ -4,13 +4,17 @@ use App\Documento;
 use App\Tratamiento;
 use App\Cliente;
 use App\Articulo;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/buscar/{buscar}','ClientesController@buscar');
 Route::get('/codArticulo/{codigo}','ArticulosController@buscarCodigo');
 Route::get('/articulo/{articulo}','ArticulosController@buscarArticulo');
 Route::get('/art/{articulo}','ArticulosController@traerArticulo');
 
+
 Route::get('/', function () {
+
+    
     return view('welcome');
 });
 
@@ -44,3 +48,8 @@ Route::get('documentos',function(){
 
 
 Route::get('/search/{search}', 'ClientesController@search');
+
+Route::get('lista','ArticulosController@lista');
+Route::post('import', 'ArticulosController@importarLista');
+
+Route::get('alertas','ArticulosController@alertas');

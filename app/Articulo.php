@@ -7,9 +7,17 @@ use App\Marca;
 use App\Categoria;
 class Articulo extends Model
 {
-    protected $fillable = ['articulo','descripcion',
-							'cantidad','stockMinimo','precio','foto','categoria_id',
-							'marca_id'];
+    protected $fillable = [
+							'codarticulo',
+							'articulo',
+							'descripcion',
+							'cantidad',
+							'stockminimo',
+							'precio',
+							'foto',
+							'marca_id',
+							'categoria_id',
+							];
 
 	public function marca(){
 

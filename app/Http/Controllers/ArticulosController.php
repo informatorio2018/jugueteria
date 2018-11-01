@@ -7,6 +7,7 @@ use App\Articulo;
 use App\Marca;
 use App\Categoria;
 use Image;
+use Excel;
 class ArticulosController extends Controller
 {
     public function buscarCodigo($value){
@@ -160,5 +161,59 @@ class ArticulosController extends Controller
         }
      
         return $key;
+    }
+    public function lista(){
+        return view('articulos.importar');
+    }
+    public function importarLista(Request $request)
+    {
+        $request->validate([
+            'lista' => 'required'
+        ]);
+ 
+        $path = $request->file('lista')->getRealPath();
+        $data = Excel::load($path)->get();
+
+       
+        if($data->count()){
+            foreach ($data as $key => $value) {
+                $arr[] = [
+                    'codarticulo' => $value->codarticulo,
+                    'articulo' => $value->articulo, 
+                    'descripcion' => $value->descripcion,
+                    'cantidad' => $value->cantidad,
+                    'stockminimo' => $value->stockminimo,
+                    'precio' => $value->precio,
+                    'foto' => $value->foto,
+                    'marca_id' => $value->marca_id,
+                    'categoria_id' => $value->categoria_id
+                    
+                ];
+            }
+ 
+            if(!empty($arr)){
+                Articulo::insert($arr);
+            }
+        }
+ 
+        return back()->with('success', 'Insert Record successfully.');
+    }
+
+
+    public function alertas(){
+
+        $alertas = array();
+
+        $articulos = Articulo::all();
+
+        foreach($articulos as $articulo){
+            if($articulo->cantidad <= $articulo->stockminimo){
+                
+                array_push ( $alertas ,  $articulo );
+
+
+            }
+        }
+        return view('articulos.alertas',compact('alertas'));
     }
 }

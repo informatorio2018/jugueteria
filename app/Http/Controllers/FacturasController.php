@@ -36,6 +36,24 @@ class FacturasController extends Controller
         return view('facturas.create',compact('clientes','articulos','factura','fecha'));
     }
 
+    public function store1(Request $request){
+
+        $codigos = $request->codArticulo;
+        $unidades = $request->cantidad;
+
+        $i=0;
+
+
+        foreach($codigos as $c){
+           $arti = Articulo::find($c);
+
+          $arti->cantidad = intval($arti->cantidad) - intval($request->cantidad);
+          $i++;
+          $arti->save(); 
+        }
+        
+        
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -44,6 +62,7 @@ class FacturasController extends Controller
      */
     public function store(Request $request)
     {
+        
         
         
         $detalle = array();
@@ -82,6 +101,23 @@ class FacturasController extends Controller
       
       
         $factura->articulos()->attach($detalle);
+
+        $codigos = $request->codArticulo;
+        $unidades = $request->cantidad;
+
+        $i=0;
+
+
+        foreach($codigos as $c){
+           $arti = Articulo::find($c);
+            
+
+          $arti->cantidad = intval($arti->cantidad) - intval($unidades[$i]);
+          $i++;
+          $arti->save(); 
+        }
+
+        
         
        
    

@@ -39,7 +39,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
         <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
+          <button class="btn btn-navbar" type="button">
             <i class="fa fa-search"></i>
           </button>
         </div>
@@ -54,27 +54,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
         <i class="fas fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <span class="badge badge-warning navbar-badge">1</span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-header">15 Notifications</span>
+          <span class="dropdown-header">Notificaciones</span>
+        
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
-          <i class="fas fa-comments"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fa fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fa fa-file mr-2"></i> 3 new reports
+            <i class="fa fa-file mr-2"></i> Lista de Faltantes
             <span class="float-right text-muted text-sm">2 days</span>
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li>
       <li class="nav-item">
@@ -115,23 +105,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <a href="#" class="nav-link active">
             <i class="fas fa-tachometer-alt"></i>
               <p>
-                Starter Pages
+                Articulos
                 <i class="right fa fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
-                <i class="nav-icon fas fa-shopping-cart"></i>
-                  <p>Active Page</p>
+                <a href="/articulos" class="nav-link active">
+                <i class="nav-icon fas fa-gift"></i>
+                  <p>Articulos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-bullhorn"></i>
-                  <p>Inactive Page</p>
+                <a href="lista" class="nav-link active">
+                <i class="nav-icon fas fa-clipboard-list"></i>
+                  <p>Importar Lista de Precios</p>
                 </a>
               </li>
+              
             </ul>
           </li>
           <li class="nav-item" >
@@ -143,20 +134,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </a>
           </li>
-          <li class="nav-item" >
-            <a href="/articulos"  class="nav-link">
-            <i class="nav-icon fas fa-cart-arrow-down"></i>
-              <p>
-               Articulos
-                <!-- <span class="right badge badge-danger">New</span> -->
-              </p>
-            </a>
-          </li>
+         
+         
           <li class="nav-item" >
             <a href="/facturas"  class="nav-link">
               <i class="nav-icon fa fa-credit-card"></i>
               <p>
                Facturas
+                <!-- <span class="right badge badge-danger">New</span> -->
+              </p>
+            </a>
+          </li>
+          <li class="nav-item" >
+            <a href="alertas"  class="nav-link">
+              <i class="nav-icon fa fa-bell"></i>
+              <p>
+               Lista de Faltantes
                 <!-- <span class="right badge badge-danger">New</span> -->
               </p>
             </a>

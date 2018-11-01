@@ -235,7 +235,17 @@
                                   </td>
                                 
                                   <td>
-                                      <input name="cantidad[]" class="form-control text-right" type="number" min="0" step="1" v-model="invoice_product.unidades" @change="calculateLineTotal(invoice_product)"
+                                      <input 
+                                        name="cantidad[]" 
+                                        class="form-control text-right" 
+                                        type="number" 
+                                        min="1" step="1" 
+                                        :max="max"
+                                        v-model="invoice_product.unidades" 
+                                        @change="calculateLineTotal(invoice_product)"
+                                        
+                                        
+                                       
                                       />
                                   </td> 
                                   <td>
@@ -339,10 +349,15 @@
         buscar:'',
         art:'',
         detalle: 0,
+        deshabilitado:false,
+        
+        max:5,
+        cantidades:[],
        
     },
    
     watch:{
+      
        total(newval,oldval){
         if(this.cuit>0 && this.detalle>0 && this.total>0){
               this.guardadoDeshabilitado = false;
@@ -383,7 +398,7 @@
                 var res = response.data;
                 me.precio = res.precio;
                 me.id = res.id;
-                me.art = res.codArticulo;
+                me.art = res.codarticulo;
                 me.barticulo = res.articulo;
                 me.cantidad = res.cantidad;
             });
@@ -471,11 +486,29 @@
             }
         },
         calculateLineTotal(invoice_product) {
-            var total = parseFloat(invoice_product.precioUnitario) * parseFloat(invoice_product.unidades);
+            var me = this;
+            var cod = invoice_product.id;
+            var tope  = 0;
+            axios.get('/art/'+cod).then(response => {
+                var r = response.data;
+           
+                tope = r.cantidad;
+               me.max = tope;
+            });
+            
+            
+              
+           
+             var total = parseFloat(invoice_product.precioUnitario) * parseFloat(invoice_product.unidades);
             if (!isNaN(total)) {
                 invoice_product.sTotal = total.toFixed(2);
-            }
-            this.calculateTotal();
+                }
+                this.calculateTotal();
+            
+           
+
+
+            
         },
         deleteRow(index, invoice_product) {
             var idx = this.detalles.indexOf(invoice_product);
@@ -495,6 +528,7 @@
                 precioUnitario: this.precio,
                 unidades:'',
                 sTotal: 0
+                
             });
             this.botonDeshabilitado = true;
             this.detalle++;
