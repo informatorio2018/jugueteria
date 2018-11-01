@@ -111,7 +111,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/articulos" class="nav-link active">
+                <a href="articulos" class="nav-link active">
                 <i class="nav-icon fas fa-gift"></i>
                   <p>Articulos</p>
                 </a>
@@ -122,11 +122,23 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <p>Importar Lista de Precios</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="categorias" class="nav-link active">
+                <i class="nav-icon fas fa-tags"></i>
+                  <p>Categorias</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="marcas" class="nav-link active">
+                <i class="nav-icon fas fa-bookmark"></i>
+                  <p>Marcas</p>
+                </a>
+              </li>
               
             </ul>
           </li>
           <li class="nav-item" >
-            <a href="/clientes"  class="nav-link">
+            <a href="clientes"  class="nav-link">
               <i class="nav-icon fa fa-th"></i>
               <p>
                Clientes
@@ -137,7 +149,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          
          
           <li class="nav-item" >
-            <a href="/facturas"  class="nav-link">
+            <a href="facturas"  class="nav-link">
               <i class="nav-icon fa fa-credit-card"></i>
               <p>
                Facturas

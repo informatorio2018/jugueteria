@@ -180,8 +180,8 @@
                                   <input type="text" class="form-control" 
                                   placeholder="Unidades" 
                                 
-                                  v-model="cantidad"
-                                 
+                                  v-model="disponible"
+                                    @change="validarAgregar"
                                   @click="borrar()"
                                   >
                               
@@ -239,8 +239,9 @@
                                         name="cantidad[]" 
                                         class="form-control text-right" 
                                         type="number" 
-                                        min="1" step="1" 
+                                        min="1" 
                                         :max="max"
+                                        step="1" 
                                         v-model="invoice_product.unidades" 
                                         @change="calculateLineTotal(invoice_product)"
                                         
@@ -330,6 +331,7 @@
         cliente:'',
         todos:[],
         articulos:[],
+        disponible:null,
         cantidad:0,
         subTotal:0,
         sTotal:0,
@@ -351,13 +353,13 @@
         detalle: 0,
         deshabilitado:false,
         
-        max:5,
+        max:0,
         cantidades:[],
        
     },
    
     watch:{
-      
+        
        total(newval,oldval){
         if(this.cuit>0 && this.detalle>0 && this.total>0){
               this.guardadoDeshabilitado = false;
@@ -379,7 +381,15 @@
           }
           
       },
-      cod(newval, oldval){
+      cuit(newval, oldval){
+        if(this.cuit>0 && this.detalle>0 && this.total>0){
+              this.guardadoDeshabilitado = false;
+          }else{
+            if(this.detalle == 0 ){
+                this.total = 0;
+                this.guardadoDeshabilitado = true;
+            }
+          }
        
       },
       cantidad(newval, oldval){
@@ -388,9 +398,22 @@
       },
       precio(newval, oldval){
        this.subTotal = (this.cantidad * this.precio);
+      },
+      disponible(newval, oldval){
+          if(this.disponible>0){
+            this.botonDeshabilitado = false;
+          }else{
+            this.botonDeshabilitado = true;
+          }
+       
       }
     },
     methods: {
+        validarAgregar(){
+            if(this.cantidad <= 0){
+                alert('Si es');
+            }
+        },
         cargarArticulo(id){
             var me = this;
             axios.get('/art/'+id)
@@ -400,11 +423,14 @@
                 me.id = res.id;
                 me.art = res.codarticulo;
                 me.barticulo = res.articulo;
-                me.cantidad = res.cantidad;
+                me.disponible = res.cantidad;
             });
+           
+
             me.todos = [];
             me.articulos=[];
-            me.botonDeshabilitado = false;
+            
+           
 
         },
         traerCodigo(){
@@ -447,6 +473,7 @@
                 me.buscar ='';
                 // always executed
             });
+            
             me.buscar = '';
 
 
@@ -496,9 +523,6 @@
                me.max = tope;
             });
             
-            
-              
-           
              var total = parseFloat(invoice_product.precioUnitario) * parseFloat(invoice_product.unidades);
             if (!isNaN(total)) {
                 invoice_product.sTotal = total.toFixed(2);

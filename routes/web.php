@@ -14,7 +14,7 @@ Route::get('/art/{articulo}','ArticulosController@traerArticulo');
 
 Route::get('/', function () {
 
-    
+
     return view('welcome');
 });
 
@@ -53,3 +53,6 @@ Route::get('lista','ArticulosController@lista');
 Route::post('import', 'ArticulosController@importarLista');
 
 Route::get('alertas','ArticulosController@alertas');
+
+Route::resource('categorias','CategoriasController');
+Route::resource('marcas','MarcasController');
