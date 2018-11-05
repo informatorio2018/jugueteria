@@ -8,7 +8,7 @@
                 <div class="col-12">
                   <h4>
                   
-                    <small class="float-right">COPIA </small>
+                    <small class="float-right">PDF </small>
                   </h4>
                 </div>
                 <!-- /.col -->
@@ -28,11 +28,11 @@
                 <div class="col-sm-4 invoice-col">
                  Cliente
                   <address>
-                    <strong>{{$factura->cliente->RazonSocial}}</strong><br>
-                    <strong>CUIT:  </strong><div>{{$factura->cliente->NroDocumento}}</div>
-                    <strong>Direccion:  </strong><div>{{$factura->cliente->DireccionFiscal}}</div>
-                    <strong>Telefono:  </strong><div>{{$factura->cliente->Telefono}}</div>
-                    <strong>Email:  </strong><div>{{$factura->cliente->MailFacturacion}}</div>
+                    <strong>{{$cliente->RazonSocial}}</strong><br>
+                    <strong>CUIT:  </strong><div>{{$cliente->NroDocumento}}</div>
+                    <strong>Direccion:  </strong><div>{{$cliente->DireccionFiscal}}</div>
+                    <strong>Telefono:  </strong><div>{{$cliente->Telefono}}</div>
+                    <strong>Email:  </strong><div>{{$cliente->MailFacturacion}}</div>
                    
                   </address>
                 </div>
@@ -62,7 +62,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($factura->articulos as $d)
+                    @foreach($detalles as $d)
                     <tr>
                       <td>{{$d->id}}</td>
                       <td>{{$d->articulo}}</td>

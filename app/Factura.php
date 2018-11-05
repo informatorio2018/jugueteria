@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Factura extends Model
 {
-    protected $fillable = ['ptoVenta','numFactura','cuit','fecha','total','subTotal', 'cliente_id', 'user_id'];
+    protected $fillable = ['ptoVenta','numFactura','cuit','fecha','total','recargo', 'cliente_id', 'user_id'];
 
     public function cliente(){
 
@@ -26,8 +26,12 @@ class Factura extends Model
      public function articulos()
     {
        return $this->belongsToMany('App\Articulo')
-        ->withPivot('articulo_factura','cantidad','medida','precioUnitario','subTotal')
+        ->withPivot('cantidad','medida','precioUnitario','subTotal')
         ->withTimestamps();
 
     }
+
+    public function artis(){
+		return $this->belongsToMany(Articulo::class,'articulo_factura');
+	}
 }

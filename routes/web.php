@@ -49,10 +49,11 @@ Route::get('documentos',function(){
 
 Route::get('/search/{search}', 'ClientesController@search');
 
-Route::get('lista','ArticulosController@lista');
+Route::get('lista','ArticulosController@lista')->name('lista');
 Route::post('import', 'ArticulosController@importarLista');
 
-Route::get('alertas','ArticulosController@alertas');
+Route::get('alertas','ArticulosController@alertas')->name('alertas');
 
 Route::resource('categorias','CategoriasController');
 Route::resource('marcas','MarcasController');
+Route::get('/facturas/pdf','FacturasController@pdf')->name('pdf');

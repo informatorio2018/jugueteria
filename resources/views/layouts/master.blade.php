@@ -111,25 +111,25 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="articulos" class="nav-link active">
+                <a href="{{route('articulos.index')}}" class="nav-link active">
                 <i class="nav-icon fas fa-gift"></i>
                   <p>Articulos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="lista" class="nav-link active">
+                <a href="{{route('lista')}}" class="nav-link active">
                 <i class="nav-icon fas fa-clipboard-list"></i>
                   <p>Importar Lista de Precios</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="categorias" class="nav-link active">
+                <a href="{{route('categorias.index')}}" class="nav-link active">
                 <i class="nav-icon fas fa-tags"></i>
                   <p>Categorias</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="marcas" class="nav-link active">
+                <a href="{{route('marcas.index')}}" class="nav-link active">
                 <i class="nav-icon fas fa-bookmark"></i>
                   <p>Marcas</p>
                 </a>
@@ -138,7 +138,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </li>
           <li class="nav-item" >
-            <a href="clientes"  class="nav-link">
+            <a href="{{route('clientes.index')}}"  class="nav-link">
               <i class="nav-icon fa fa-th"></i>
               <p>
                Clientes
@@ -149,7 +149,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
          
          
           <li class="nav-item" >
-            <a href="facturas"  class="nav-link">
+            <a href="{{route('facturas.index')}}"  class="nav-link">
               <i class="nav-icon fa fa-credit-card"></i>
               <p>
                Facturas
@@ -158,7 +158,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
           </li>
           <li class="nav-item" >
-            <a href="alertas"  class="nav-link">
+            <a href="{{route('alertas')}}"  class="nav-link">
               <i class="nav-icon fa fa-bell"></i>
               <p>
                Lista de Faltantes

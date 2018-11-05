@@ -11,7 +11,7 @@ $factory->define(App\Articulo::class, function (Faker $faker) {
         'codArticulo'=>$faker->randomNumber($nbDigits = 6, $strict = true),
         'descripcion'=>$faker->sentence(3),
         'cantidad'=>$faker->randomDigit,
-        'stockMinimo'=>$faker->randomNumber($nbDigits = 1, $strict = true),
+        'stockMinimo'=>$faker->numberBetween($min = 1, $max = 3),
         'precio'=>$faker->randomFloat($nbMaxDecimals = 2, $min = 1, $max = 999),
         'marca_id'=>$faker->boolean($chanceOfGettingTrue = 50),
         'foto'=>$foto,

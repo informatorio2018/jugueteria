@@ -281,7 +281,7 @@
                                     type="text"
                                     class="form-control" 
                                     placeholder="Recargo"
-                                    name="tax" 
+                                    name="recargo" 
                                     v-model="invoice_tax">
                                 </div>
                               </div>

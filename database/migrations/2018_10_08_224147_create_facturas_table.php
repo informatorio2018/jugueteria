@@ -19,10 +19,10 @@ class CreateFacturasTable extends Migration
             $table->integer('numFactura');
             $table->integer('cuit');
             $table->date('fecha');
-           
-             $table->decimal('total',8,2);
-            $table->decimal('subTotal',8,2);
+            $table->decimal('recargo',8,2);
 
+            $table->decimal('total',8,2);
+            
             
              $table->unsignedInteger('cliente_id');
              $table->unsignedInteger('user_id');

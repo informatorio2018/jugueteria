@@ -8,6 +8,7 @@ use App\Factura;
 use App\Cliente;
 use App\Articulo;
 use App\User;
+use PDF;
 class FacturasController extends Controller
 {
     /**
@@ -76,7 +77,7 @@ class FacturasController extends Controller
             'cuit' => $request->cuit,
             'fecha' => $request->fecha,
             'total' => $request->total,
-            'subTotal' => 2700,
+            'recargo' =>  $request->recargo,
             'cliente_id' => $request->cliente_id,
             'user_id' => $request->user_id,
         ])->save();
@@ -135,12 +136,13 @@ class FacturasController extends Controller
     public function show($id)
     {
         $factura = Factura::find($id);
-        $cliente = $factura->cliente;
-        
-
-        return $factura->articulos;
+        // $cliente = $factura->cliente;
        
-        return view('facturas.show',compact('factura','cliente'));
+        // $detalles = $factura->articulos;
+    
+        // return view('facturas.show',compact('factura','cliente','detalles'));
+
+        return view('facturas.show',compact('factura'));
     }
 
     /**
@@ -176,4 +178,31 @@ class FacturasController extends Controller
     {
         //
     }
+
+    public function export_pdf()
+    {
+    // Fetch all customers from database
+    $data = Factura::find(1);
+    // Send data to the view using loadView function of PDF facade
+    $pdf = PDF::loadView('facturas.show', $data);
+    // If you want to store the generated pdf to the server then you can use the store function
+    $pdf->save(storage_path().'_filename.pdf');
+    // Finally, you can download the file using download function
+    return $pdf->download('customers.pdf');
+  }
+
+  public function pdf(){
+
+    $factura = Factura::find(1);
+    $cliente = $factura->cliente;
+       
+    $detalles = $factura->articulos;
+    
+    $data['factura'] = $factura;
+    $data['cliente'] = $cliente;
+    $data['detalles'] = $detalles;
+
+    $pdf = PDF::loadView('facturas.pdf', $data);
+    return $pdf->stream();
+  }
 }
